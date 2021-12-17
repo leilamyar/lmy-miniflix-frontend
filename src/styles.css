@@ -2,9 +2,11 @@ button {
   background: orchid;
   border: mediumorchid;
   color: white;
+  cursor: pointer;
 }
 
 button:disabled {
+  cursor: not-allowed;
   background: lightgray;
   color: grey;
 }
