@@ -1,0 +1,9 @@
+<header>
+  <div *ngIf="isLoggedIn; else elseBlock">Hello {{ user }}
+    <br>
+    <button (click)="logOut()">Log Out</button>
+  </div>
+  <ng-template #elseBlock>
+    <a routerLink="login">Login</a>
+  </ng-template>
+</header>

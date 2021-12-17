@@ -10,12 +10,10 @@ import { FilmsService } from 'src/app/services/films.service';
 export class FilmsComponent implements OnInit {
 
   films$?: Observable<any[]>;
-  user: any;
 
   constructor(private filmsSv: FilmsService) { }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem('user');
     this.films$ = this.filmsSv.getFilms();
   }
 
