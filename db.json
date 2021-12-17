@@ -3,6 +3,7 @@
     {
       "id": 1,
       "username": "sara1",
+      "password": "pwd000",
       "herList": [
         1,
         2,
@@ -14,6 +15,7 @@
     {
       "id": 2,
       "username": "sara2",
+      "password": "pwd000",
       "herList": [
         4,
         5,
@@ -25,6 +27,7 @@
     {
       "id": 3,
       "username": "sara3",
+      "password": "pwd000",
       "herList": [
         2,
         4,
@@ -36,6 +39,7 @@
     {
       "id": 4,
       "username": "sara4",
+      "password": "pwd000",
       "herList": [
         1,
         3,
@@ -47,6 +51,7 @@
     {
       "id": 5,
       "username": "sara5",
+      "password": "pwd000",
       "herList": [
         1,
         2,
