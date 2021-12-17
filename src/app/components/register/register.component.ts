@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -10,8 +11,9 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerForm: any = FormGroup;
+  // newUserId: number;
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -24,8 +26,22 @@ export class RegisterComponent implements OnInit {
 
   };
 
-  submitRegister(data: any) {
-    // console.log('data from Form::', data);
+  submitRegister(inputData: any) {
+    // console.log('inputData from Form::', data);
+    // const { username, password } = inputData;
+    // TODO: sanitize input data
+    this.authSv
+      .addUser(inputData)
+      .subscribe((data) => {
+        // console.log('data registered::', data); => data has same props from inputData + its id from DB
+        if (data) {
+          if (data.id) {
+            // TODO: check if username already exists
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('user', data.username);
+          }
+        }
+      });
   };
 
   navigateToLogin() {

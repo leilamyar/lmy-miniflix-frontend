@@ -14,4 +14,7 @@ export class AuthService {
   getUser() {
     return this.http.get<any>(this.baseUrl + '/users');
   }
+  addUser(userData: any) {
+    return this.http.post<any>(this.baseUrl + '/users', userData);
+  }
 }
