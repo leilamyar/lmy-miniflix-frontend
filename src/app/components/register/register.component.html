@@ -1,0 +1,11 @@
+<h2>Register</h2>
+<form [formGroup]="registerForm">
+  <label for="Enter Username">Username:</label>
+  <input type="text" placeholder="Enter Username" formControlName='username'>
+  <br>
+  <label for="password">Password:</label>
+  <input type="text" placeholder="Enter Password" formControlName='password'>
+  <button (click)="submitRegister(registerForm.value)" [disabled]="registerForm.invalid">Register</button>
+  <br>
+  <button (click)="navigateToLogin()">Log in</button>
+</form>
