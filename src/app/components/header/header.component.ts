@@ -10,6 +10,8 @@ export class HeaderComponent implements OnInit {
 
   user: any;
   isLoggedIn: any;
+  // hello user doesn't work in header unless we refresh
+  // TODO: pass isLoggedIn from App Comp
 
   constructor(private router: Router) { }
 
@@ -20,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     localStorage.clear();
-    this.router.navigate(['home']);
+    this.router.navigate(['/']);
   }
 
 }
