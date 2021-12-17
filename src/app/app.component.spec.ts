@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-forms-playground'`, () => {
+  it(`should have as title 'lmy-miniflix-frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-forms-playground');
+    expect(app.title).toEqual('lmy-miniflix-frontend');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ng-forms-playground app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('lmy-miniflix-frontend app is running!');
   });
 });
