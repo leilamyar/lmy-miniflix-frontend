@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,23 +9,27 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-  // loginForm = new FormGroup({
-  //   username: new FormControl(null, Validators.required),
-  //   password: new FormControl(null, Validators.required),
-  // });
+  loginForm: any = FormGroup;
 
-  // loginForm?: FormGroup;
-
-  // constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
-    // this.loginForm = this.fb.group({
-    //   username: '',
-    //   password: '',
-    // });
-    // // Extract values from the form:
+    this.loginForm = this.fb.group({
+      // email: ['', Validators.compose([Validators.required, Validators.email])],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+    // Extract values from the form:
     // this.loginForm.valueChanges.subscribe(console.log);
 
   };
 
+  submitLogin(data: any) {
+    // console.log('data from Form::', data);
+
+  };
+
+  navigateToSignUp() {
+    this.router.navigate(['register']);
+  };
 }

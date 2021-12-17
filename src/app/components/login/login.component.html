@@ -1,10 +1,11 @@
 <h2>Log in</h2>
-<form>
-  <label for="username">Username:</label>
-  <input type="text" placeholder="username">
+<form [formGroup]="loginForm">
+  <label for="Enter Username">Username:</label>
+  <input type="text" placeholder="Enter Username" formControlName='username'>
   <br>
   <label for="password">Password:</label>
-  <input type="text" placeholder="password">
-  <button>Login</button>
-  <button>Sign Up</button>
+  <input type="text" placeholder="Enter Password" formControlName='password'>
+  <button (click)="submitLogin(loginForm.value)" [disabled]="loginForm.invalid">Login</button>
+  <br>
+  <button (click)="navigateToSignUp()">Sign Up</button>
 </form>
