@@ -1,0 +1,10 @@
+.card {
+  border: 2px solid grey;
+  display: inline-block;
+}
+
+.card__img {
+  background-color: lightgrey;
+  width: 200px;
+  height: 100px;
+}

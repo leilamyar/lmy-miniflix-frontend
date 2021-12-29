@@ -21,6 +21,10 @@ a:active {
   color: white;
 }
 
+ul {
+  list-style: none;
+}
+
 .error {
   color: tomato;
 }
