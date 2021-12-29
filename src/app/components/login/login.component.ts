@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm: any = FormGroup;
+  msg = '';
+
   private users: any[] = [];
 
   constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService) { }
@@ -30,24 +32,19 @@ export class LoginComponent implements OnInit {
   };
 
   submitLogin(inputData: any) {
-    // console.log('inputData from Form::', inputData);
     if (inputData.username) {
       let fromDb = this.users.find(u => u.username === inputData.username);
-      if (fromDb.password === inputData.password) {
-        // console.log('User is valid');
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user', inputData.username);
-        this.router.navigate(['films']);
+      if (!fromDb) {
+        this.msg = `The username "${inputData.username}" doesn't exist`;
       } else {
-        console.log('User is not valid');
+        if (fromDb.password === inputData.password) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('user', inputData.username);
+          this.router.navigate(['films']);
+        } else {
+          this.msg = 'The password is not correct';
+        }
       }
-    } else {
-      console.log('Please enter valid username & password');
-
     }
-  };
-
-  navigateToSignUp() {
-    this.router.navigate(['register']);
   };
 }

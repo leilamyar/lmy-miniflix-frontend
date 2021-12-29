@@ -13,10 +13,14 @@ button:disabled {
 
 a {
   color: currentColor;
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 a:hover,
 a:active {
   background: hotpink;
   color: white;
+}
+
+.error {
+  color: tomato;
 }
