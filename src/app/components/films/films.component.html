@@ -1,3 +1,5 @@
 <ul *ngFor="let film of films$ | async">
-  <li>{{ film.title }}</li>
+  <li>
+    <film-card [film]="film"></film-card>
+  </li>
 </ul>
