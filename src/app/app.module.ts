@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowseComponent } from './pages/browse/browse.component';
+import { FilmCardComponent } from './components/film-card/film-card.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BrowseComponent } from './pages/browse/browse.component';
     RegisterComponent,
     HeaderComponent,
     BrowseComponent,
+    FilmCardComponent,
   ],
   imports: [
     BrowserModule,
