@@ -12,6 +12,7 @@
 
   <button (click)="submitRegister(registerForm.value)" [disabled]="registerForm.invalid" type="button">Register</button>
 </form>
+<div *ngIf="msg" [ngClass]="(msg || msg != '') ? 'error' : ''">{{msg}}</div>
 
 <div>
   Already have an account ? <a routerLink='../login'>Log in</a>

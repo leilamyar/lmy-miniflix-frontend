@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       .subscribe((data) => {
         this.users = data;
       });
+    // TODO: put users list in Store for single src of truth betw Login & Reg Comp
   };
 
   submitLogin(inputData: any) {
@@ -45,6 +46,8 @@ export class LoginComponent implements OnInit {
           this.msg = 'The password is not correct';
         }
       }
+    } else {
+      this.msg = `Please enter a username`;
     }
   };
 }

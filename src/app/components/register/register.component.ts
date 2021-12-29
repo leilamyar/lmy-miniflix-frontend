@@ -11,9 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit {
 
   registerForm: any = FormGroup;
-  // newUserId: number;
+  msg = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService) { }
+  private users: any[] = [];
+
+  constructor(private fb: FormBuilder,
+    private authSv: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -24,28 +28,33 @@ export class RegisterComponent implements OnInit {
     // Extract values from the form:
     // this.registerForm.valueChanges.subscribe(console.log);
 
+    this.authSv.getUser()
+      .subscribe((data) => {
+        this.users = data;
+      });
+    // TODO: put users list in Store for single src of truth betw Login & Reg Comp
   };
 
   submitRegister(inputData: any) {
-    // console.log('inputData from Form::', data);
-    // const { username, password } = inputData;
     // TODO: sanitize input data
-    this.authSv
-      .addUser(inputData)
-      .subscribe((data) => {
-        // console.log('data registered::', data); => data has same props from inputData + its id from DB
-        if (data) {
-          if (data.id) {
-            // TODO: check if username already exists
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('user', data.username);
-          }
-        }
-      });
-  };
-
-  navigateToLogin() {
-    this.router.navigate(['login']);
+    if (inputData.username) {
+      let fromDb = this.users.find(u => u.username === inputData.username);
+      if (fromDb) {
+        this.msg = `The username "${inputData.username}" already exists`;
+      } else {
+        this.authSv
+          .addUser(inputData)
+          .subscribe((data) => {
+            if (data) {
+              localStorage.setItem('isLoggedIn', 'true');
+              localStorage.setItem('user', data.username);
+              this.router.navigate(['films']);
+            }
+          });
+      }
+    } else {
+      this.msg = `Please enter a username`;
+    }
   };
 
 }
