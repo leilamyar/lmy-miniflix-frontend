@@ -1,11 +1,18 @@
 <h2>Register</h2>
 <form [formGroup]="registerForm">
-  <label for="Enter Username">Username:</label>
-  <input type="text" placeholder="Enter Username" formControlName='username'>
-  <br>
-  <label for="password">Password:</label>
-  <input type="text" placeholder="Enter Password" formControlName='password'>
+  <div>
+    <label for="Enter Username">Username:</label>
+    <input type="text" placeholder="Enter Username" formControlName='username'>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input type="text" placeholder="Enter Password" formControlName='password'>
+  </div>
+
   <button (click)="submitRegister(registerForm.value)" [disabled]="registerForm.invalid">Register</button>
-  <br>
-  <button (click)="navigateToLogin()">Log in</button>
 </form>
+
+<div>
+  Already have an account ? <a routerLink='../login'>Log in</a>
+</div>

@@ -1,12 +1,20 @@
 <h2>Log in</h2>
 <form [formGroup]="loginForm">
-  <label for="Enter Username">Username:</label>
-  <input type="text" placeholder="Enter Username" formControlName='username'>
-  <br>
-  <label for="password">Password:</label>
-  <input type="text" placeholder="Enter Password" formControlName='password'>
+  <div>
+    <label for="Enter Username">Username:</label>
+    <input type="text" placeholder="Enter Username" formControlName='username'>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input type="text" placeholder="Enter Password" formControlName='password'>
+  </div>
+
   <button (click)="submitLogin(loginForm.value)" [disabled]="loginForm.invalid">Login</button>
-  <br>
-  <div>Not Registered Yet?</div>
-  <button (click)="navigateToSignUp()">Sign Up</button>
 </form>
+
+<div *ngIf="msg" [ngClass]="(msg || msg != '') ? 'error' : ''">{{msg}}</div>
+
+<div>
+  Not Registered Yet ? <a routerLink='../register'>Sign Up</a>
+</div>
