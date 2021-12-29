@@ -22,6 +22,10 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     localStorage.clear();
+    this.isLoggedIn = false;
+    console.log('from LS:', localStorage.getItem('isLoggedIn'));
+    console.log('from LS:', localStorage.getItem('user'));
+
     this.router.navigate(['/']);
   }
 
