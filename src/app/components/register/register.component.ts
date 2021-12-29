@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
             if (data) {
               localStorage.setItem('isLoggedIn', 'true');
               localStorage.setItem('user', data.username);
-              this.router.navigate(['films']);
+              this.router.navigate(['browse']);
             }
           });
       }

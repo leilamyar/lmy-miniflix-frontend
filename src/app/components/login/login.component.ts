@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         if (fromDb.password === inputData.password) {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('user', inputData.username);
-          this.router.navigate(['films']);
+          this.router.navigate(['browse']);
         } else {
           this.msg = 'The password is not correct';
         }
