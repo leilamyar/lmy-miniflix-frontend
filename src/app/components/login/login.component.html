@@ -10,7 +10,7 @@
     <input type="text" placeholder="Enter Password" formControlName='password'>
   </div>
 
-  <button (click)="submitLogin(loginForm.value)" [disabled]="loginForm.invalid">Login</button>
+  <button (click)="submitLogin(loginForm.value)" [disabled]="loginForm.invalid" type="button">Login</button>
 </form>
 
 <div *ngIf="msg" [ngClass]="(msg || msg != '') ? 'error' : ''">{{msg}}</div>
