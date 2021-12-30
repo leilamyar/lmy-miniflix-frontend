@@ -1,0 +1,8 @@
+<div class="slider-c">
+  <h2>{{filmListTitle}}</h2>
+  <ul *ngFor="let film of films$ | async">
+    <li>
+      <film-card [film]="film"></film-card>
+    </li>
+  </ul>
+</div>

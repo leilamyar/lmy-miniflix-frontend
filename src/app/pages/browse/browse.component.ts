@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrowseComponent implements OnInit {
 
+  filmListTitle = 'New & Popular';
+  // TODO: handle list filters
+
   constructor() { }
 
   ngOnInit(): void {
