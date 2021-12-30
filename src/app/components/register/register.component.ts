@@ -27,18 +27,18 @@ export class RegisterComponent implements OnInit {
     });
     // Extract values from the form:
     // this.registerForm.valueChanges.subscribe(console.log);
-
-    this.authSv.getUser()
-      .subscribe((data) => {
-        this.users = data;
-      });
-    // TODO: put users list in Store for single src of truth betw Login & Reg Comp
   };
 
   submitRegister(inputData: any) {
     // TODO: sanitize input data
     if (inputData.username) {
-      let fromDb = this.users.find(u => u.username === inputData.username);
+      let fromDb;
+      this.authSv.getUser(inputData.username)
+        .subscribe((data) => {
+          fromDb = data;
+          // TODO: refactor (like login comp) to handle errors
+        });
+      // this.users.find(u => u.username === inputData.username);
       if (fromDb) {
         this.msg = `The username "${inputData.username}" already exists`;
       } else {
