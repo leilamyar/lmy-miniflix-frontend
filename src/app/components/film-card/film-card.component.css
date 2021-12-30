@@ -1,10 +1,17 @@
-.card {
-  border: 2px solid grey;
-  display: inline-block;
-}
+
 
 .card__img {
-  background-color: lightgrey;
+  display: grid;
+  place-items: end;
   width: 200px;
-  height: 100px;
+  height: 120px;
+  padding: .6em;
+
+  background-color: lightgrey;
+  color: black;
+  font-weight: 700;
 }
+
+p {
+  margin: 0;
+} 
