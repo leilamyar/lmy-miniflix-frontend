@@ -1,0 +1,13 @@
+ul {
+  /* position: fixed; */
+  /* z-index: 1000; */
+  /* top: 0; */
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(auto, 160px));
+  align-items: center;
+}
+
+li:last-child {
+  grid-column-end: -1;
+}
