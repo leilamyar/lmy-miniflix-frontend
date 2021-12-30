@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observer } from 'rxjs';
+import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,8 +14,10 @@ export class LoginComponent implements OnInit {
 
   loginForm: any = FormGroup;
   msg = '';
+  user?: User;
+  fromForm?: any;
 
-  private users: any[] = [];
+  // private users: any[] = [];
 
   constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService) { }
 
@@ -25,27 +29,43 @@ export class LoginComponent implements OnInit {
     });
     // Extract values from the form:
     // this.loginForm.valueChanges.subscribe(console.log);
-    this.authSv.getUser()
-      .subscribe((data) => {
-        this.users = data;
-      });
-    // TODO: put users list in Store for single src of truth betw Login & Reg Comp
   };
 
-  submitLogin(inputData: any) {
-    if (inputData.username) {
-      let fromDb = this.users.find(u => u.username === inputData.username);
-      if (!fromDb) {
-        this.msg = `The username "${inputData.username}" doesn't exist`;
+  private handleNext = (data: any) => {
+    this.user = data[0];
+    if (this.user) {
+      if (this.user.password === this.fromForm.password) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user', this.user.username);
+        this.router.navigate(['browse']);
       } else {
-        if (fromDb.password === inputData.password) {
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('user', inputData.username);
-          this.router.navigate(['browse']);
-        } else {
-          this.msg = 'The password is not correct';
-        }
+        this.msg = 'The password is not correct';
       }
+    } else {
+      this.msg = `The username "${this.fromForm.username}" doesn't exist`;
+    }
+    return data[0];
+  };
+
+  private handleError(err: string) {
+    this.msg = 'An error occured. Please try again later.';
+    console.log(err);
+    return err;
+  };
+
+  observer: Observer<User> = {
+    next: this.handleNext,
+    error: this.handleError,
+    complete: () => { console.log('Log In Request Completed'); },
+  }
+
+
+  submitLogin(inputData: any) {
+    this.fromForm = inputData;
+    if (inputData.username) {
+      this.authSv.getUser(inputData.username)
+        .subscribe(this.observer);
+      // TODO: put user in Store
     } else {
       this.msg = `Please enter a username`;
     }
