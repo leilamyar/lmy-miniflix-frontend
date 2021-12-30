@@ -1,0 +1,9 @@
+ul {
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: row nowrap;
+}
+
+li {
+  margin: 1em;
+}
