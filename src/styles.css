@@ -1,3 +1,24 @@
+:root {
+  --bg-clr: #141414;
+  --clr-primary: #fff;
+  --clr-accent: #e50914;
+  --clr-not-active:lightgray;
+  --clr-hover:#b3b3b3;
+}
+
+*, *::before, *::after { box-sizing: border-box; } 
+
+body,
+html {
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background-color: var(--bg-clr);
+  color: var(--clr-primary);
+}
+
+h1 {
+  color: var(--clr-accent);
+}
+
 button {
   background: orchid;
   border: mediumorchid;
@@ -24,6 +45,9 @@ a:active {
 
 ul {
   list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
 }
 
 .error {
