@@ -27,9 +27,9 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+/* button:hover {
   border-bottom: 2px solid currentColor;
-}
+} */
 
 button:disabled {
   cursor: not-allowed;
