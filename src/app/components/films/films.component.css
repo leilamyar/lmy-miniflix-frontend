@@ -1,0 +1,11 @@
+ul {
+  max-width: 90%;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 1rem;
+}
+
+li {
+  max-width: minmax(min-content, 100%);
+  margin: .8rem;
+}
