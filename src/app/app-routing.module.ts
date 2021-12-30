@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowseComponent } from './pages/browse/browse.component';
 import { HomeComponent } from './pages/home/home.component';
+import { MyListComponent } from './pages/my-list/my-list.component';
 
 const routes: Routes = [
   { path: '', component: RegisterComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'browse', component: BrowseComponent, canActivate: [AuthGuard] },
+  { path: 'my-list', component: MyListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

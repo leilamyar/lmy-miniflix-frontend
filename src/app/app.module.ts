@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowseComponent } from './pages/browse/browse.component';
 import { FilmCardComponent } from './components/film-card/film-card.component';
 import { FilmSliderComponent } from './components/film-slider/film-slider.component';
+import { MyListComponent } from './pages/my-list/my-list.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FilmSliderComponent } from './components/film-slider/film-slider.compon
     BrowseComponent,
     FilmCardComponent,
     FilmSliderComponent,
+    MyListComponent,
   ],
   imports: [
     BrowserModule,
