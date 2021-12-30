@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
       if (this.user.password === this.fromForm.password) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', this.user.username);
+        localStorage.setItem('userId', String(this.user.id));
 
         localStorage.setItem('list', this.user.herList.join(','));
         // TODO: replace ls list (ie, user) by Store
