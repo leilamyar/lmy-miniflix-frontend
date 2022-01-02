@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     userId: -1,
     firstname: '',
     myList: [],
+    liked: [],
   };
 
   constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService, private myListSv: MyListService) { }
@@ -54,10 +55,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         };
         // Find User's MyList
         this.myListSv.getMyListByUserId(this.user.id).subscribe({
-          next: ml => {
+          next: data => {
             this.appState = {
               ...this.appState,
-              myList: ml[0].myList,
+              myList: data.myList,
+              liked: data.liked,
             };
             // TODO: use RxJS .pipe() iso myList Subscr inside authSubscr
             localStorage.setItem('appState', JSON.stringify(this.appState));

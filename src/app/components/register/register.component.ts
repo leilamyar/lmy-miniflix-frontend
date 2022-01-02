@@ -37,6 +37,8 @@ export class RegisterComponent implements OnInit {
         .subscribe((data) => {
           fromDb = data;
           // TODO: refactor (like login comp) to handle errors
+
+          // FIXME: use LS AppState (like login comp)
         });
       // this.users.find(u => u.username === inputData.username);
       if (fromDb) {
