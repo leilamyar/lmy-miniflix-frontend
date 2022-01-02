@@ -1,40 +1,38 @@
 {
   "users": [
     {
-      "userId": 1,
+      "id": 1,
       "firstname": "Xavier",
+      "name": "G",
       "username": "xav",
       "password": "123",
       "myList": [
         1,
-        2,
-        4,
-        3
+        2
       ],
-      "liked": [],
-      "id": 1
+      "liked": []
     },
     {
-      "userId": 2,
+      "id": 2,
       "firstname": "Arthur",
+      "name": "Pestel",
       "username": "art",
       "password": "123",
       "myList": [
         1,
         2
       ],
-      "liked": [],
-      "id": 2
+      "liked": []
     },
     {
       "id": 3,
       "firstname": "Nathalie",
+      "name": "C",
       "username": "nat",
       "password": "123",
       "myList": [
         1,
-        2,
-        4
+        2
       ],
       "liked": []
     }
