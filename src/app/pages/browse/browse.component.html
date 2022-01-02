@@ -1,2 +1,3 @@
 <app-header></app-header>
-<film-slider [filmListTitle]="filmListTitle"></film-slider>
+
+<film-slider *ngIf="films$" [filmListTitle]="filmListTitle" [films$]="films$"></film-slider>

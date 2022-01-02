@@ -20,11 +20,16 @@ h1 {
 }
 
 button {
-  background: orchid;
-  border: mediumorchid;
-  color: white;
+  /* font-family: inherit; */
+  background-color: var(--bg-clr);
+  color: var(--clr-primary);
+  border: none;
   cursor: pointer;
 }
+
+/* button:hover {
+  border-bottom: 2px solid currentColor;
+} */
 
 button:disabled {
   cursor: not-allowed;
@@ -35,12 +40,12 @@ button:disabled {
 
 a {
   color: currentColor;
-  /* text-decoration: none; */
+  text-decoration: none;
 }
 a:hover,
 a:active {
-  background: hotpink;
-  color: white;
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 ul {

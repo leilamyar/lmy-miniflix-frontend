@@ -7,7 +7,7 @@
 
   <div>
     <label for="password">Password:</label>
-    <input type="text" placeholder="Enter Password" formControlName='password'>
+    <input type="password" placeholder="Enter Password" formControlName='password'>
   </div>
 
   <button (click)="submitLogin(loginForm.value)" [disabled]="loginForm.invalid" type="button">Login</button>
