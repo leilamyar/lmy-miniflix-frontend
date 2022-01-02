@@ -1,20 +1,24 @@
 {
   "users": [
     {
-      "id": 1,
+      "userId": 1,
       "firstname": "Xavier",
-      "name": "G",
       "username": "xav",
       "password": "123",
       "myList": [
         1,
-        2
+        2,
+        4,
+        3
       ],
-      "liked": []
+      "liked": [],
+      "id": 1
     },
     {
       "userId": 2,
       "firstname": "Arthur",
+      "username": "art",
+      "password": "123",
       "myList": [
         1,
         2
@@ -23,14 +27,16 @@
       "id": 2
     },
     {
-      "userId": 3,
+      "id": 3,
       "firstname": "Nathalie",
+      "username": "nat",
+      "password": "123",
       "myList": [
         1,
-        2
+        2,
+        4
       ],
-      "liked": [],
-      "id": 3
+      "liked": []
     }
   ],
   "films": [

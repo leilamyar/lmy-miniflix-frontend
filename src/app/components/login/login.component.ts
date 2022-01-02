@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observer, Subscription } from 'rxjs';
 import { AppState } from 'src/app/models/AppState';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
-import { MyListService } from 'src/app/services/my-list.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -18,19 +18,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   msg = '';
   fromForm?: any;
   private user?: User;
-  // private usersMyList?: any[];
 
   private authSubscription$?: Subscription;
   private myListSubscription$?: Subscription;
 
   private appState: AppState = {
-    userId: -1,
+    id: -1,
     firstname: '',
+    name: '',
+    username: '',
+    password: '',
     myList: [],
     liked: [],
   };
 
-  constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService, private myListSv: MyListService) { }
+  constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService, private userSv: UserService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -50,11 +52,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         this.appState = {
           ...this.appState,
-          userId: this.user.id,
+          id: this.user.id,
           firstname: this.user.firstname,
+          name: this.user.name,
+          username: this.user.username,
+          password: this.user.password,
         };
+        console.log('USER ID ?', this.appState);
+
         // Find User's MyList
-        this.myListSv.getMyListByUserId(this.user.id).subscribe({
+        this.userSv.getMyListByUserId(this.user.id).subscribe({
           next: data => {
             this.appState = {
               ...this.appState,
@@ -65,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             localStorage.setItem('appState', JSON.stringify(this.appState));
             this.router.navigate(['browse']);
           },
-          error: err => console.log('Login Comp: An Error occured on GET users films List. User ID:', this.user?.id, ' - error msg from Server:', err)
+          error: (err: any) => console.log('Login Comp: An Error occured on GET users films List. User ID:', this.user?.id, ' - error msg from Server:', err)
           ,
         });
 
