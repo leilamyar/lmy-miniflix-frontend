@@ -14,6 +14,7 @@ import { BrowseComponent } from './pages/browse/browse.component';
 import { FilmCardComponent } from './components/film-card/film-card.component';
 import { FilmSliderComponent } from './components/film-slider/film-slider.component';
 import { MyListComponent } from './pages/my-list/my-list.component';
+import { ToListIconDirective } from './directives/to-list-icon.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MyListComponent } from './pages/my-list/my-list.component';
     FilmCardComponent,
     FilmSliderComponent,
     MyListComponent,
+    ToListIconDirective,
   ],
   imports: [
     BrowserModule,
