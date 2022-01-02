@@ -1,25 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observer } from 'rxjs';
+import { Observer, Subscription } from 'rxjs';
+import { AppState } from 'src/app/models/AppState';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { MyListService } from 'src/app/services/my-list.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: any = FormGroup;
   msg = '';
-  user?: User;
   fromForm?: any;
+  private user?: User;
+  // private usersMyList?: any[];
 
-  // private users: any[] = [];
+  private authSubscription$?: Subscription;
+  private myListSubscription$?: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService) { }
+  private appState: AppState = {
+    userId: -1,
+    firstname: '',
+    myList: [],
+  };
+
+  constructor(private fb: FormBuilder, private router: Router, private authSv: AuthService, private myListSv: MyListService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -33,16 +43,30 @@ export class LoginComponent implements OnInit {
 
   private handleNext = (data: any) => {
     this.user = data[0];
+    // TODO: replace by State / LS data
     if (this.user) {
       if (this.user.password === this.fromForm.password) {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user', this.user.username);
-        localStorage.setItem('userId', String(this.user.id));
 
-        localStorage.setItem('list', this.user.herList.join(','));
-        // TODO: replace ls list (ie, user) by Store
+        this.appState = {
+          ...this.appState,
+          userId: this.user.id,
+          firstname: this.user.firstname,
+        };
+        // Find User's MyList
+        this.myListSv.getMyListByUserId(this.user.id).subscribe({
+          next: ml => {
+            this.appState = {
+              ...this.appState,
+              myList: ml[0].myList,
+            };
+            // TODO: use RxJS .pipe() iso myList Subscr inside authSubscr
+            localStorage.setItem('appState', JSON.stringify(this.appState));
+            this.router.navigate(['browse']);
+          },
+          error: err => console.log('Login Comp: An Error occured on GET users films List. User ID:', this.user?.id, ' - error msg from Server:', err)
+          ,
+        });
 
-        this.router.navigate(['browse']);
       } else {
         this.msg = 'The password is not correct';
       }
@@ -61,18 +85,24 @@ export class LoginComponent implements OnInit {
   observer: Observer<User> = {
     next: this.handleNext,
     error: this.handleError,
-    complete: () => { console.log('Log In Request Completed'); },
+    complete: () => { console.log('GET User By Id Succeeded'); },
   }
 
 
   submitLogin(inputData: any) {
     this.fromForm = inputData;
     if (inputData.username) {
-      this.authSv.getUser(inputData.username)
+      this.authSubscription$ = this.authSv.getUser(inputData.username)
         .subscribe(this.observer);
-      // TODO: put user in Store
     } else {
       this.msg = `Please enter a username`;
     }
   };
+
+  ngOnDestroy() {
+    this.authSubscription$?.unsubscribe();
+    this.myListSubscription$?.unsubscribe();
+    // TODO: check unsubscribe Best Practice
+    console.log('[LoginComp] Destroyed');
+  }
 }

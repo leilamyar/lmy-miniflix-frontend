@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+// import { Observable } from 'rxjs';
 
 @Component({
   selector: 'films',
@@ -8,4 +9,5 @@ import { Component, Input } from '@angular/core';
 
 export class FilmsComponent {
   @Input() films?: any[];
+  // @Input() films$?: Observable<any[]>;
 }

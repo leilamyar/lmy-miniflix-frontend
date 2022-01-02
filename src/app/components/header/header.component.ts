@@ -8,14 +8,15 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  user: any;
-  isLoggedIn: any;
+  firstname: any;
+  isLoggedIn: boolean = false;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem('user');
-    this.isLoggedIn = localStorage.getItem('isLoggedIn');
+    const appState = localStorage.getItem('appState') ? JSON.parse((localStorage.getItem('appState') || '')) : null;
+    this.firstname = appState.firstname;
+    this.isLoggedIn = appState ? true : false;
   }
 
   logOut() {

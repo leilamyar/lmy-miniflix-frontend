@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FilmsService } from 'src/app/services/films.service';
 
 @Component({
   selector: 'app-browse',
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.css']
 })
-export class BrowseComponent implements OnInit {
+export class BrowseComponent implements OnInit, OnDestroy {
 
   filmListTitle = 'New & Popular';
   // TODO: handle list filters
 
-  constructor() { }
+  films$?: Observable<any[]>;
 
-  ngOnInit(): void {
+  constructor(private filmsSv: FilmsService) { }
+
+  ngOnInit(): void { this.films$ = this.filmsSv.getFilms(); };
+  ngOnDestroy(): void {
+    console.log('[BrowseComp] Destroyed');
   }
-
 }
