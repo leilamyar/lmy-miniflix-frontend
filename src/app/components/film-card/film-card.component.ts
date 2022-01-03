@@ -22,7 +22,6 @@ export class FilmCardComponent implements OnInit, OnDestroy {
       const appState = appStateSelector(localStorage);
       const currentMyList = myListSelector(appState);
 
-      console.log('CONTAINS ? :', currentMyList.includes(filmIdToAdd));
       if (!currentMyList.includes(filmIdToAdd)) {
 
         const newAppState: AppState = {

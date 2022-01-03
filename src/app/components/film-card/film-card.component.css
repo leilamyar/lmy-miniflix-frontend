@@ -1,5 +1,3 @@
-
-
 .card__img {
   display: grid;
   place-items: end;
@@ -15,3 +13,14 @@
 p {
   margin: 0;
 } 
+
+.to-list-btn {
+  /* background-color: lightgreen; */
+  width: 32px;
+  height: 32px;
+}
+
+[toListIcon] {
+  background: url('../../../assets/add_icon.svg');
+  background-size: contain;
+}
