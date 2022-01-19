@@ -20,7 +20,8 @@ p {
   height: 32px;
 }
 
-[toListIcon] {
+/* [toListIcon] { */
+.to-list-btn {
   background: url('../../../assets/add_icon.svg');
   background-size: contain;
 }

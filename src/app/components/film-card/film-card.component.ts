@@ -17,27 +17,28 @@ export class FilmCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void { }
 
   addFilmToUser(filmIdToAdd: number) {
-    const appState = appStateSelector(localStorage);
-    if (appState) {
-      const appState = appStateSelector(localStorage);
-      const currentMyList = myListSelector(appState);
 
-      if (!currentMyList.includes(filmIdToAdd)) {
+    // const appState = appStateSelector(localStorage);
+    // if (appState) {
+    //   const appState = appStateSelector(localStorage);
+    //   const currentMyList = myListSelector(appState);
 
-        const newAppState: AppState = {
-          ...appState,
-          myList: [...currentMyList, filmIdToAdd],
-        };
-        this.userSv.updateUserList(newAppState)
-          .subscribe(data => {
-            localStorage.removeItem(appState);
-            localStorage.setItem('appState', JSON.stringify(newAppState));
-          });
-      }
-    } else {
-      console.error('Error with AppState Selector');
-      throw new Error("Error with AppState Selector using LocalStorage");
-    }
+    // if (!currentMyList.includes(filmIdToAdd)) {
+
+    // const newAppState: AppState = {
+    //   ...appState,
+    //   myList: [...currentMyList, filmIdToAdd],
+    // };
+    //     this.userSv.updateUserList(newAppState)
+    //       .subscribe(data => {
+    //         localStorage.removeItem(appState);
+    //         localStorage.setItem('appState', JSON.stringify(newAppState));
+    //       });
+    //   }
+    // } else {
+    //   console.error('Error with AppState Selector');
+    //   throw new Error("Error with AppState Selector using LocalStorage");
+    // }
   }
 
   ngOnDestroy(): void {
