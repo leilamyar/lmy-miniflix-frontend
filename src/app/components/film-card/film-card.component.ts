@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { filter, Subscription, tap } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
+import { UserDataService } from 'src/app/services/user-data.service';
 import { UserService } from 'src/app/services/user.service';
 
 enum ICON {
@@ -19,24 +20,18 @@ export class FilmCardComponent implements OnInit, OnDestroy {
   @Input() film: any;
   // @Output() addFilmToMyList: any;
   icon: ICON;
-  private inMyList: boolean;
-
+  // private inMyList: boolean;
   private subscr: Subscription;
 
-  constructor(private dataSv: DataService, private userSv: UserService) { }
+  constructor(private userSv: UserService, private userDataSv: UserDataService) { }
 
   ngOnInit(): void {
-    // this.myList$ = this.dataSv.getMyList();
-    this.inMyList = this.dataSv.getMyList().includes(this.film.id);
-
-    this.icon = (this.dataSv.getMyList().includes(this.film.id)) ? ICON.REMOVE_ICON : ICON.ADD_ICON;
-
-
+    this.icon = (this.userDataSv.getUserMyList().includes(this.film.id)) ? ICON.REMOVE_ICON : ICON.ADD_ICON;
   }
 
   addFilmToUser(filmId: number) {
 
-    this.dataSv.addFilmToMyList(filmId);
+    // this.dataSv.addFilmToMyList(filmId);
 
     // const appState = appStateSelector(localStorage);
     // if (appState) {

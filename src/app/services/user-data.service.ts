@@ -21,6 +21,8 @@ export class UserDataService {
 
   getIsLoggedIn(): boolean { return this._isLoggedIn; }
   getUserFirstname(): string { return this._userData.firstname; }
+  getUserMyList(): number[] { return this._userData.myList; }
+
   logOut(): boolean {
     this._isLoggedIn = false;
     this._userData = this._initialUserData;
