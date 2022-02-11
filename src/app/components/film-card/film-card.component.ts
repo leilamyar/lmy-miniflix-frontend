@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { filter, Subscription, tap } from 'rxjs';
+import { MY_LIST_ACTIONS } from 'src/app/actions/myList.actions';
 import { DataService } from 'src/app/services/data.service';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,9 +19,7 @@ enum ICON {
 export class FilmCardComponent implements OnInit, OnDestroy {
 
   @Input() film: any;
-  // @Output() addFilmToMyList: any;
   icon: ICON;
-  // private inMyList: boolean;
   private subscr: Subscription;
 
   constructor(private userSv: UserService, private userDataSv: UserDataService) { }
@@ -31,33 +30,26 @@ export class FilmCardComponent implements OnInit, OnDestroy {
 
   addFilmToUser(filmId: number) {
 
-    // this.dataSv.addFilmToMyList(filmId);
-
-    // const appState = appStateSelector(localStorage);
-    // if (appState) {
-    //   const appState = appStateSelector(localStorage);
-    //   const currentMyList = myListSelector(appState);
-
-    // if (!currentMyList.includes(filmIdToAdd)) {
-
-    // const newAppState: AppState = {
-    //   ...appState,
-    //   myList: [...currentMyList, filmIdToAdd],
-    // };
-    //     this.userSv.updateUserList(newAppState)
-    //       .subscribe(data => {
-    //         localStorage.removeItem(appState);
-    //         localStorage.setItem('appState', JSON.stringify(newAppState));
-    //       });
-    //   }
-    // } else {
-    //   console.error('Error with AppState Selector');
-    //   throw new Error("Error with AppState Selector using LocalStorage");
-    // }
+    if (this.icon === ICON.ADD_ICON) {
+      this.subscr = this.userDataSv
+        .updateUserMyList(MY_LIST_ACTIONS.ADD, filmId)
+        .subscribe((/*successMsg*/) => {
+          this.icon = ICON.REMOVE_ICON;
+          console.log('added !');
+        });
+    } else {
+      this.subscr = this.userDataSv
+        .updateUserMyList(MY_LIST_ACTIONS.REMOVE, filmId)
+        .subscribe((/*successMsg*/) => {
+          this.icon = ICON.ADD_ICON;
+          console.log('removed !');
+        });
+    }
+    // TODO handle error in Toaster / ...
   }
 
   ngOnDestroy(): void {
     // console.log('[FilmCardComp] Destroyed');
-    // this.subscr.unsubscribe();
+    this.subscr.unsubscribe();
   }
 }

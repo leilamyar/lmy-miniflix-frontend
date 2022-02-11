@@ -29,7 +29,7 @@ export class UserService {
    * @param newList array of films ids to add to user's list
    * @returns 
    */
-  patchUserList(userId: number, newList: number[]) {
+  updateUserMyList(userId: number, newList: number[]) {
     let reqBody = {
       "myList": newList,
     };

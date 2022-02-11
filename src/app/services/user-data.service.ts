@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subscription } from 'rxjs';
+import { MY_LIST_ACTIONS } from '../actions/myList.actions';
 import { UserData } from '../models/UserData';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class UserDataService {
   };
   private _userData: UserData = this._initialUserData;
 
-  constructor(private authSv: AuthService) { }
+  constructor(private authSv: AuthService, private userSv: UserService) { }
 
   getIsLoggedIn(): boolean { return this._isLoggedIn; }
   getUserFirstname(): string { return this._userData.firstname; }
@@ -59,35 +61,33 @@ export class UserDataService {
 
   };
 
-  // login(formData: any): any {
-  //   return this.authSv.getUser(formData.username)
-  //     .subscribe(
-  //       {
-  //         next: (userData) => {
-  //           let user = userData[0];
-  //           if (user) {
-  //             if (user.password === formData.password) {
-  //               // Set App Data : user, my list, is logged in
-  //               this._userFirstname = user.firstname;
-  //               this._userMyList = user.myList;
-  //               this.updateLoggedIn();
-  //               console.log('DATA:', this._isLoggedIn, this._userFirstname, this._userMyList);
-  //             } else {
-  //               // this.msg = 'The password is not correct';
-  //             }
-  //           } else {
-  //             // this.msg = `The username "${this.fromForm.username}" doesn't exist`;
-  //           };
-  //           return user;
-  //           // return of(user);
-  //         },
-  //         error: (err: string) => {
-  //           // this.msg = 'An error occured. Please try again later.';
-  //           console.log(err);
-  //           return err;
-  //         },
-  //         complete: () => console.info('[Login Utils] Login Observer completed'),
-  //       }
-  //     );
-  // }
+  updateUserMyList(action: MY_LIST_ACTIONS, filmId: number) {
+    let newMyList: number[];
+    switch (action) {
+      case MY_LIST_ACTIONS.ADD:
+        newMyList = [...this._userData.myList, filmId];
+        return this.userSv
+          .updateUserMyList(this._userData.id, newMyList)
+          .pipe(
+            map((/*updatedUser*/) => {
+              this._userData.myList = newMyList;
+              return 'List updated !';
+            }),
+          );
+      // break;
+      case MY_LIST_ACTIONS.REMOVE:
+        newMyList = this._userData.myList.filter((fid) => fid != filmId);
+        return this.userSv
+          .updateUserMyList(this._userData.id, newMyList)
+          .pipe(
+            map((/*updatedUser*/) => {
+              this._userData.myList = newMyList;
+              return 'List updated !';
+            }),
+          );
+      default:
+        return of('Default action reached')
+        break;
+    }
+  }
 }
