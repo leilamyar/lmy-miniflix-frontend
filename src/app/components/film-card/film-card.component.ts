@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { filter, Subscription, tap } from 'rxjs';
 import { MY_LIST_ACTIONS } from 'src/app/actions/myList.actions';
-import { DataService } from 'src/app/services/data.service';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { UserService } from 'src/app/services/user.service';
 

@@ -33,22 +33,9 @@ export class UserDataService {
 
   setUserData(formdata: any): Observable<string> {
     // TODO: make & return Custom Messages / Toaster / ...
-
-    // this._authSub = this.authSv.login(formdata)
-    //   .subscribe({
-    //     next: (userData: UserData) => {
-    //       this._userData = userData;
-    //       this._isLoggedIn = true;
-    //     },
-    //     error: () => {
-    //       console.log('[UserDataSv] An error occured logging user');
-    //     }
-    //   });
-    // this._authSub = this.authSv.login(formdata)
     return this.authSv.login(formdata)
       .pipe(
         map((userData: UserData) => {
-          console.log('[UserDataSv] mapping user data...', userData);
           this._userData = userData;
           this._isLoggedIn = true;
           return 'User is logged in';

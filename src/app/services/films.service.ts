@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment as env } from "../../environments/environment";
+import { Film } from '../models/Film';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class FilmsService {
 
   constructor(private http: HttpClient) { }
 
-  getFilms(): Observable<any[]> {
+  getFilms(): Observable<Film[]> {
     const res = this.http.get<any[]>(this.baseUrl + '/films');
     return res;
   }
