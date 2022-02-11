@@ -14,14 +14,19 @@ p {
   margin: 0;
 } 
 
-.to-list-btn {
+.add-btn,
+.remove-btn {
   /* background-color: lightgreen; */
   width: 32px;
   height: 32px;
 }
 
 /* [toListIcon] { */
-.to-list-btn {
+.add-btn {
   background: url('../../../assets/add_icon.svg');
+  background-size: contain;
+}
+.remove-btn {
+  background: url('../../../assets/remove_icon.svg');
   background-size: contain;
 }

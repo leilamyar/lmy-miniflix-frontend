@@ -6,6 +6,7 @@ import { AppState } from 'src/app/models/AppState';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
+import { UserDataService } from 'src/app/services/user-data.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,11 +18,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: any = FormGroup;
   msg = '';
-  fromForm?: any;
+  // fromForm?: any;
   subscription?: Subscription;
-  loginSubsc?: Subscription;
+  private _loginSubsc?: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private dataSv: DataService, private userSv: UserService) { }
+  constructor(private fb: FormBuilder, private router: Router, private userDataSv: UserDataService, private userSv: UserService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -34,12 +35,30 @@ export class LoginComponent implements OnInit, OnDestroy {
   };
 
   submitLogin(inputData: any) {
-    // this.fromForm = inputData;
     if (inputData.username) {
-      this.loginSubsc = this.dataSv.login(inputData);
-      this.subscription = this.dataSv
-        .onLoggedInUpdate()
-        .subscribe(() => this.router.navigate(['browse']));
+      this._loginSubsc = this.userDataSv
+        .setUserData(inputData)
+        .subscribe({
+          next: (successMsg: string) => {
+            console.log('User logged in SUCCESS:', successMsg);
+            this.router.navigate(['browse']);
+          },
+          error: () => {
+            console.log('[LoginSv] An error occured logging user');
+            this.msg = `Login data not correct`;
+          }
+        });
+      // this.loginSubsc = this.dataSv.login(inputData);
+      // this.router.navigate(['browse'])
+
+      // this.subscription = this.userDataSv.setUserData(inputData);
+      //   .subscribe(() => this.router.navigate(['browse']));
+      // this.userDataSv
+      //   .setUserData(inputData)
+      //   .subscribe((successMsg) => {
+      //     console.log('User logged in SUCCESS:', successMsg);
+      //     this.router.navigate(['browse']);
+      //   });
     } else {
       this.msg = `Please enter a username`;
     }
@@ -47,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
-    this.loginSubsc?.unsubscribe();
+    this._loginSubsc?.unsubscribe();
     // // TODO: check unsubscribe to list of Subscriptions all at once
     // console.log('[LoginComp] Destroyed');
   }

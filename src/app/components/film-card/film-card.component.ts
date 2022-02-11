@@ -1,22 +1,42 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AppState } from 'src/app/models/AppState';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { filter, Subscription, tap } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
-import { appStateSelector, myListSelector } from 'src/app/utils/appState.utils';
+
+enum ICON {
+  ADD_ICON = 'add-btn',
+  REMOVE_ICON = 'remove-btn',
+};
 
 @Component({
   selector: 'film-card',
   templateUrl: './film-card.component.html',
   styleUrls: ['./film-card.component.css']
 })
+
 export class FilmCardComponent implements OnInit, OnDestroy {
 
-  @Input() film?: any;
+  @Input() film: any;
+  // @Output() addFilmToMyList: any;
+  icon: ICON;
+  private inMyList: boolean;
 
-  constructor(private userSv: UserService) { }
+  private subscr: Subscription;
 
-  ngOnInit(): void { }
+  constructor(private dataSv: DataService, private userSv: UserService) { }
 
-  addFilmToUser(filmIdToAdd: number) {
+  ngOnInit(): void {
+    // this.myList$ = this.dataSv.getMyList();
+    this.inMyList = this.dataSv.getMyList().includes(this.film.id);
+
+    this.icon = (this.dataSv.getMyList().includes(this.film.id)) ? ICON.REMOVE_ICON : ICON.ADD_ICON;
+
+
+  }
+
+  addFilmToUser(filmId: number) {
+
+    this.dataSv.addFilmToMyList(filmId);
 
     // const appState = appStateSelector(localStorage);
     // if (appState) {
@@ -42,6 +62,7 @@ export class FilmCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('[FilmCardComp] Destroyed');
+    // console.log('[FilmCardComp] Destroyed');
+    // this.subscr.unsubscribe();
   }
 }

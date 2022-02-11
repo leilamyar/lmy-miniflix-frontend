@@ -11,7 +11,7 @@ import { appStateSelector, myListSelector } from 'src/app/utils/appState.utils';
 })
 export class MyListComponent implements OnInit, OnDestroy {
 
-  filmList?: any[];
+  filmList: any[];
 
   constructor(private filmsSv: FilmsService) { }
 

@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 
 export class FilmsComponent {
-  @Input() films?: any[];
-  // @Input() films$?: Observable<any[]>;
+  @Input() films: any[];
+  // @Input() films$: Observable<any[]>;
 }

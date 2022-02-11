@@ -1,4 +1,6 @@
 export interface UserData {
+  id: number
   firstname: string,
-  // jwtToken
+  // jwtToken,
+  myList: number[];
 }
