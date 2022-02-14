@@ -19,7 +19,7 @@ export class FilmCardComponent implements OnInit, OnDestroy {
 
   @Input() film: any;
   icon: ICON;
-  private subscr: Subscription;
+  // private subscr: Subscription;
 
   constructor(private userSv: UserService, private userDataSv: UserDataService) { }
 
@@ -30,14 +30,16 @@ export class FilmCardComponent implements OnInit, OnDestroy {
   addFilmToUser(filmId: number) {
 
     if (this.icon === ICON.ADD_ICON) {
-      this.subscr = this.userDataSv
+      // this.subscr = this.userDataSv
+      this.userDataSv
         .updateUserMyList(MY_LIST_ACTIONS.ADD, filmId)
         .subscribe((/*successMsg*/) => {
           this.icon = ICON.REMOVE_ICON;
           console.log('added !');
         });
     } else {
-      this.subscr = this.userDataSv
+      // this.subscr = this.userDataSv
+      this.userDataSv
         .updateUserMyList(MY_LIST_ACTIONS.REMOVE, filmId)
         .subscribe((/*successMsg*/) => {
           this.icon = ICON.ADD_ICON;
@@ -49,6 +51,7 @@ export class FilmCardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // console.log('[FilmCardComp] Destroyed');
-    this.subscr.unsubscribe();
+    // FIXME: this.subscr undefined when navigating from browse to myList
+    // this.subscr.unsubscribe();:
   }
 }
