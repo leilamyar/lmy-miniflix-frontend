@@ -9,7 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MyListComponent } from './pages/my-list/my-list.component';
 
 const routes: Routes = [
-  { path: '', component: RegisterComponent },
+  { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },

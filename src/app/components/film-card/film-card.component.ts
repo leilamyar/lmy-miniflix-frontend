@@ -1,46 +1,57 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AppState } from 'src/app/models/AppState';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { filter, Subscription, tap } from 'rxjs';
+import { MY_LIST_ACTIONS } from 'src/app/actions/myList.actions';
+import { UserDataService } from 'src/app/services/user-data.service';
 import { UserService } from 'src/app/services/user.service';
-import { appStateSelector, myListSelector } from 'src/app/utils/appState.utils';
+
+enum ICON {
+  ADD_ICON = 'add-btn',
+  REMOVE_ICON = 'remove-btn',
+};
 
 @Component({
   selector: 'film-card',
   templateUrl: './film-card.component.html',
   styleUrls: ['./film-card.component.css']
 })
+
 export class FilmCardComponent implements OnInit, OnDestroy {
 
-  @Input() film?: any;
+  @Input() film: any;
+  icon: ICON;
+  // private subscr: Subscription;
 
-  constructor(private userSv: UserService) { }
+  constructor(private userSv: UserService, private userDataSv: UserDataService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.icon = (this.userDataSv.getUserMyList().includes(this.film.id)) ? ICON.REMOVE_ICON : ICON.ADD_ICON;
+  }
 
-  addFilmToUser(filmIdToAdd: number) {
-    const appState = appStateSelector(localStorage);
-    if (appState) {
-      const appState = appStateSelector(localStorage);
-      const currentMyList = myListSelector(appState);
+  addFilmToUser(filmId: number) {
 
-      if (!currentMyList.includes(filmIdToAdd)) {
-
-        const newAppState: AppState = {
-          ...appState,
-          myList: [...currentMyList, filmIdToAdd],
-        };
-        this.userSv.updateUserList(newAppState)
-          .subscribe(data => {
-            localStorage.removeItem(appState);
-            localStorage.setItem('appState', JSON.stringify(newAppState));
-          });
-      }
+    if (this.icon === ICON.ADD_ICON) {
+      // this.subscr = this.userDataSv
+      this.userDataSv
+        .updateUserMyList(MY_LIST_ACTIONS.ADD, filmId)
+        .subscribe((/*successMsg*/) => {
+          this.icon = ICON.REMOVE_ICON;
+          console.log('added !');
+        });
     } else {
-      console.error('Error with AppState Selector');
-      throw new Error("Error with AppState Selector using LocalStorage");
+      // this.subscr = this.userDataSv
+      this.userDataSv
+        .updateUserMyList(MY_LIST_ACTIONS.REMOVE, filmId)
+        .subscribe((/*successMsg*/) => {
+          this.icon = ICON.ADD_ICON;
+          console.log('removed !');
+        });
     }
+    // TODO handle error in Toaster / ...
   }
 
   ngOnDestroy(): void {
-    console.log('[FilmCardComp] Destroyed');
+    // console.log('[FilmCardComp] Destroyed');
+    // FIXME: this.subscr undefined when navigating from browse to myList
+    // this.subscr.unsubscribe();:
   }
 }

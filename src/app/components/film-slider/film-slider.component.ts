@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class FilmSliderComponent {
 
-  @Input() filmListTitle?: string;
-  @Input() films$?: Observable<any[]>;
+  @Input() filmListTitle: string;
+  @Input() films$: Observable<any[]>;
 
 }
