@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { UserDataService } from 'src/app/services/user-data.service';
 
 @Component({
   selector: 'app-header',
@@ -11,18 +13,16 @@ export class HeaderComponent implements OnInit {
   firstname: any;
   isLoggedIn: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userDataSv: UserDataService) { }
 
   ngOnInit(): void {
-    const appState = localStorage.getItem('appState') ? JSON.parse((localStorage.getItem('appState') || '')) : null;
-    this.firstname = appState.firstname;
-    this.isLoggedIn = appState ? true : false;
+    this.isLoggedIn = this.userDataSv.getIsLoggedIn();
+    this.firstname = this.userDataSv.getUserFirstname();
   }
 
   logOut() {
-    localStorage.clear();
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
+    this.isLoggedIn = this.userDataSv.logOut();
+    this.router.navigate(['login']);
   }
 
 }

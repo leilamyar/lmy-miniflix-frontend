@@ -31,67 +31,182 @@
       "username": "nat",
       "password": "123",
       "myList": [
-        1,
-        2
+        0,
+        1
       ],
       "liked": []
     }
   ],
   "films": [
     {
+      "id": 0,
+      "title": "Encanto",
+      "genres": [
+        1,
+        3
+      ]
+    },
+    {
       "id": 1,
       "title": "Soul",
-      "src": ""
+      "genres": [
+        3
+      ]
     },
     {
       "id": 2,
-      "title": "Toy Story",
-      "src": ""
+      "title": "The Matrix",
+      "genres": [
+        4
+      ]
     },
     {
       "id": 3,
-      "title": "Toy Story 2",
-      "src": ""
+      "title": "The Moving Castle",
+      "genres": [
+        2
+      ]
     },
     {
       "id": 4,
-      "title": "Toy Story 3",
-      "src": ""
+      "title": "When Marnie was there",
+      "genres": [
+        2
+      ]
     },
     {
       "id": 5,
-      "title": "Toy Story 4",
-      "src": ""
+      "title": "The Orbital Children",
+      "genres": [
+        1,
+        2
+      ]
     },
     {
       "id": 6,
-      "title": "Cars",
-      "src": ""
+      "title": "The Matrix: Reloaded",
+      "genres": [
+        4
+      ]
     },
     {
       "id": 7,
-      "title": "Lucas",
-      "src": ""
+      "title": "Blue Exorcist",
+      "genres": [
+        2
+      ]
     },
     {
       "id": 8,
-      "title": "Coco",
-      "src": ""
+      "title": "Arrietty",
+      "genres": [
+        2
+      ]
     },
     {
       "id": 9,
-      "title": "Wreck It Ralph",
-      "src": ""
+      "title": "The Little Mermaid",
+      "genres": [
+        3
+      ]
     },
     {
       "id": 10,
-      "title": "The Little Mermaid",
-      "src": ""
+      "title": "The Aristocats",
+      "genres": [
+        3
+      ]
     },
     {
       "id": 11,
-      "title": "Beauty and The Beast",
-      "src": ""
+      "title": "The Jungle Book",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Flubber",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Beauty and the Beast",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Aladdin",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Bambi",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Mulan",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Toy Story",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Dumbo",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 19,
+      "title": "The Lion King",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Snow White",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Peter Pan",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 22,
+      "title": "101 Dalmatians",
+      "genres": [
+        3
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Cruella Devil",
+      "genres": [
+        3
+      ]
     }
   ]
 }

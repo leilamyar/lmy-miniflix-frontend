@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map, Subscription } from 'rxjs';
+import { Film } from 'src/app/models/Film';
 
 import { FilmsService } from 'src/app/services/films.service';
-import { appStateSelector, myListSelector } from 'src/app/utils/appState.utils';
+import { UserDataService } from 'src/app/services/user-data.service';
+
 
 @Component({
   selector: 'app-my-list',
@@ -11,25 +13,19 @@ import { appStateSelector, myListSelector } from 'src/app/utils/appState.utils';
 })
 export class MyListComponent implements OnInit, OnDestroy {
 
-  filmList?: any[];
+  filmList: any[];
+  private _subscription: Subscription;
 
-  constructor(private filmsSv: FilmsService) { }
+  constructor(private filmsSv: FilmsService, private userDataSv: UserDataService) { }
 
   ngOnInit(): void {
-    const appState = appStateSelector(localStorage);
-
-    if (appState) {
-      const filmIds = myListSelector(appState);
-      const httpCall$ = filmIds.map((id: number) => this.filmsSv.getFilmById(id));
-      forkJoin(httpCall$)
-        .subscribe((data: any) => this.filmList = data.map((curr: any) => curr[0]));
-    } else {
-      console.log('No Film Ids Found');
-    }
+    const httpCall$ = this.userDataSv.getUserMyList().map((id: number) => this.filmsSv.getFilmById(id));
+    this._subscription = forkJoin(httpCall$)
+      .subscribe((data: any) => this.filmList = data.map((curr: any) => curr[0]));
   }
+  // FIXME: film-card not removed from MyList View
 
   ngOnDestroy(): void {
-    console.log('[MyListComp] Destroyed');
-
+    this._subscription.unsubscribe();
   }
 }
